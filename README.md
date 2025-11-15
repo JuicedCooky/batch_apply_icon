@@ -8,21 +8,21 @@ apply icon to folders using exe
 | --depth | int | number of subfolders, how many folders to navigate until the desired folders to add icons to |
 
 if depth==0 apply icons to every folder within the parent directory folder
-<br/>
-parent
-  - folder to apply icon
-  - folder to apply icon
-  - folder to apply icon 
-  - folder to apply icon
+<br/><br/>
+parent<br/>
+  &emsp;\- folder to apply icon<br/>
+  &emsp;\- folder to apply icon<br/>
+  &emsp;\- folder to apply icon <br/>
+  &emsp;\- folder to apply icon<br/>
 
 
 if depth==1 apply icons to every folder within each folder within the parent
-<br/>
-parent
-  - folder
-    - folder to apply icon
-    - folder to apply icon
-    - folder to apply icon 
-  - folder
-    - folder to apply icon
-    - folder to apply icon
+<br/><br/>
+parent<br/>
+  &emsp;\- folder<br/>
+    &emsp;\- folder to apply icon<br/>
+    &emsp;\- folder to apply icon<br/>
+    &emsp;\- folder to apply icon <br/>
+  &emsp;\- folder<br/>
+    &emsp;\- folder to apply icon<br/>
+    &emsp;\- folder to apply icon<br/>
