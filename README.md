@@ -20,9 +20,9 @@ if depth==1 apply icons to every folder within each folder within the parent
 <br/><br/>
 parent<br/>
   &emsp;\- folder<br/>
-    &emsp;\- folder to apply icon<br/>
-    &emsp;\- folder to apply icon<br/>
-    &emsp;\- folder to apply icon <br/>
+    &emsp;&emsp;\- folder to apply icon<br/>
+    &emsp;&emsp;\- folder to apply icon<br/>
+    &emsp;&emsp;\- folder to apply icon <br/>
   &emsp;\- folder<br/>
-    &emsp;\- folder to apply icon<br/>
-    &emsp;\- folder to apply icon<br/>
+    &emsp;&emsp;\- folder to apply icon<br/>
+    &emsp;&emsp;\- folder to apply icon<br/>
