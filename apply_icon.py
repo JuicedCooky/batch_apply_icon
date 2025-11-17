@@ -133,9 +133,11 @@ def find_exe_or_icon(folder_path, args):
                 print("has ico")
                 return os.path.join(dirpath, file)
 
-            if extension == ".exe" and exe_path is None and base.lower().find("unist") == -1 and args.exe:
-                print("has exe")
-                exe_path = os.path.join(dirpath, file)
+            if extension == ".exe" and exe_path is None and args.exe:
+                substrings = [string.lower() for string in args.restricted_keywords]
+                if not any(sub in base.lower() for sub in substrings):
+                    print("has exe")
+                    exe_path = os.path.join(dirpath, file)
 
             if extension == VALID_IMAGE_EXTS and args.image:
                 print("has img")
@@ -223,7 +225,7 @@ def main():
     parser.add_argument("--directory", type=str, required=True)
     parser.add_argument("--is-parent", action="store_true")
     parser.add_argument("--depth", type=int, default=0)
-    parser.add_argument("--restricted-keywords", type=str)
+    parser.add_argument("--restricted-keywords", type=str, nargs="*", default="unist")
 
     parser.add_argument("--exe", type=bool, default=True)
     parser.add_argument("--ico", type=bool, default=False)
