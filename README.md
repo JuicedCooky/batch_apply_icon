@@ -6,6 +6,9 @@ apply icon to folders using exe
 | --directory | path/str | the path to the folder to apply the icon or the parent folder containing other folders |
 | --is-parent | bool | specifies if the directory is a parent containing other folders to add icons |
 | --depth | int | number of subfolders, how many folders to navigate until the desired folders to add icons to |
+| --exe | bool | whether to look for icons in .exe files |
+| --ico | bool | whether to look for icons in .ico files |
+| --image | bool | whether to look for icons in image files |
 
 if depth==0 apply icons to every folder within the parent directory folder
 <br/><br/>
