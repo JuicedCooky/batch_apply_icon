@@ -119,7 +119,7 @@ def extract_exe_icon(exe_path, ico_path):
 #     img.save(ico_path, format="ICO")
 #     return 
 
-def find_exe_or_icon(folder_path, exe_only=True):
+def find_exe_or_icon(folder_path, args):
     path_to_exe_or_icon = None
     exe_path = None
     image_path = None
@@ -129,15 +129,15 @@ def find_exe_or_icon(folder_path, exe_only=True):
         for file in filenames:
             base, extension = os.path.splitext(file)
 
-            if extension == ".ico" and not exe_only:
+            if extension == ".ico" and args.ico:
                 print("has ico")
                 return os.path.join(dirpath, file)
 
-            if extension == ".exe" and exe_path is None and base.lower().find("unist") == -1:
+            if extension == ".exe" and exe_path is None and base.lower().find("unist") == -1 and args.exe:
                 print("has exe")
                 exe_path = os.path.join(dirpath, file)
 
-            if extension == VALID_IMAGE_EXTS and not exe_only:
+            if extension == VALID_IMAGE_EXTS and args.image:
                 print("has img")
                 image_path = os.path.join(dirpath, file)
 
@@ -203,19 +203,19 @@ class SHFileInfo(Structure):
         ("szTypeName", TCHAR * 80),
     ]
 
-def apply_subfolder(parent_path, depth=0):
+def apply_subfolder(parent_path, args, depth=0):
     if depth == 0:
         for subfolder in os.listdir(parent_path):
             subfolder_path = (os.path.join(parent_path, subfolder))
             if os.path.isdir(subfolder_path):
                 print(subfolder_path)
-                icon_path = find_exe_or_icon(subfolder_path)
+                icon_path = find_exe_or_icon(subfolder_path, args)
                 set_icon(subfolder_path, icon_path)
     else:
         for subfolder in os.listdir(parent_path):
             subfolder_path = (os.path.join(parent_path, subfolder))
             if os.path.isdir(subfolder_path):
-                apply_subfolder(subfolder_path, depth-1)
+                apply_subfolder(subfolder_path, args, depth-1)
 
 
 def main():
@@ -223,16 +223,22 @@ def main():
     parser.add_argument("--directory", type=str, required=True)
     parser.add_argument("--is-parent", action="store_true")
     parser.add_argument("--depth", type=int, default=0)
+    parser.add_argument("--restricted-keywords", type=str)
+
+    parser.add_argument("--exe", type=bool, default=True)
+    parser.add_argument("--ico", type=bool, default=False)
+    parser.add_argument("--image", type=bool, default=False)
+
     
     args = parser.parse_args()
 
     assert args.directory, "Invalid directory"
 
     if args.is_parent is None:
-        icon_path = find_exe_or_icon(args.directory)
+        icon_path = find_exe_or_icon(args.directory, args)
         set_icon(args.directory, icon_path)
     else:
-        apply_subfolder(args.directory, args.depth)
+        apply_subfolder(args.directory, args, args.depth)
 
 if __name__ == "__main__":
     main()
